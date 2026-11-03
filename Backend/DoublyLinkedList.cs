@@ -76,7 +76,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             output += $"{current.Data},";
             current = current.Next;
         }
-        return $"{output.TrimEnd(',')}";
+        return $"{output.TrimEnd(',')} \n";
     }
 
     public string ToStringReverse()
@@ -88,7 +88,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             output += $"{current.Data},";
             current = current.Prev;
         }
-        return $"{output.TrimEnd(',')}";
+        return $"{output.TrimEnd(',')} ";
     }
     public void OrderDescending()
     {
@@ -158,16 +158,16 @@ public class DoublyLinkedList<T> where T : IComparable<T>
     }
     public T? RemoveFirst()
     {
-        if (_head == null) return default; //Returns the default value (e.g., null or 0) if the list is empty
+        if (_head == null) return default; 
 
-        var removedData = _head.Data; // Store the value before deleting the node
+        var removedData = _head.Data; 
 
-        if (_head.Next == null) // There is only one item on the list
+        if (_head.Next == null) 
         {
             _head = null;
             _tail = null;
         }
-        else // There is more than one element
+        else 
         {
             _head = _head.Next;
             _head!.Prev = null;

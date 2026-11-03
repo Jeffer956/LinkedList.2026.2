@@ -1,4 +1,5 @@
 ﻿using Backend;
+using System.Diagnostics;
 
 var list = new DoublyLinkedList<string>();
 var option = string.Empty;
@@ -20,7 +21,9 @@ do
             break;
         case "4":
             list.OrderDescending();
-            Console.WriteLine("List ordered in descending order.");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine( "List ordered in descending order." );
+            Console.WriteLine("-----------------------------------");
             break;
         case "5":
             Console.WriteLine(list.GetModes());
@@ -45,24 +48,28 @@ do
             var datoEliminado = list.RemoveFirst();
             if (datoEliminado != null && !datoEliminado.Equals(default))
             {
-                Console.WriteLine($"Se ha eliminado el primer elemento de la lista: {datoEliminado}");
+                Console.WriteLine($"The first element has been removed from the list: {datoEliminado}");
             }
             else
             {
-                Console.WriteLine("La lista está vacía, no hay elementos para eliminar.");
+                Console.WriteLine("The list is empty, there are no elements to remove.");
             }
             break;
         case "9":
             list.Clear();
-            Console.WriteLine("Remove all dates");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("|         Remove all dates        |");
+            Console.WriteLine("-----------------------------------");
             break;
     }
 } while (option != "0");
 Console.WriteLine("Exiting the program. Goodbye!");
+Console.ReadKey();
 
 string Menu()
 {
-    Console.WriteLine("1. To add");
+    Console.WriteLine("==== MENU ====");
+    Console.WriteLine("1. Add");
     Console.WriteLine("2. Show Forward list.");
     Console.WriteLine("3. Show Reverse list.");
     Console.WriteLine("4. Order Descending.");
