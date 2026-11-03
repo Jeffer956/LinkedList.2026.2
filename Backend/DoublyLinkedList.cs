@@ -59,23 +59,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             current.Prev = newNode;
         }
     }
-
-    // Checks if an element exists in the list
-    public bool Contains(T data)
-    {
-        var current = _head;
-        while (current != null)
-        {
-            if (current.Data!.Equals(data))
-            {
-                return true;
-            }
-            current = current.Next;
-        }
-        return false;
-    }
-
-    // Formats list contents from head to tail
+        // Formats list contents from head to tail
     public string ToStringForward()
     {
         var output = string.Empty;
@@ -124,6 +108,20 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         _tail = temp;
 
         _isDescending = !_isDescending;
+    }
+    // Checks if an element exists in the list
+    public bool Contains(T data)
+    {
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Data!.Equals(data))
+            {
+                return true;
+            }
+            current = current.Next;
+        }
+        return false;
     }
 
     // Calculates and returns string representation of statistical mode(s)
@@ -181,6 +179,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
 
     // Removes and returns the first element in the list
     public T? RemoveFirst()
+
     {
         if (_head == null) return default;
 
@@ -188,10 +187,8 @@ public class DoublyLinkedList<T> where T : IComparable<T>
 
         // Single element case
         if (_head.Next == null)
-        {
-            _head = null;
-            _tail = null;
-        }
+        { }
+
         // Multiple elements case
         else
         {
