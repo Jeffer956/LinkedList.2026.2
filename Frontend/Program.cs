@@ -1,5 +1,4 @@
 ﻿using Backend;
-using System.Diagnostics;
 
 var list = new DoublyLinkedList<string>();
 var option = string.Empty;
@@ -7,6 +6,7 @@ var option = string.Empty;
 do
 {
     option = Menu();
+    Console.WriteLine();
     switch (option)
     {
         case "1":
@@ -29,26 +29,28 @@ do
             Console.WriteLine(list.GetModes());
             break;
         case "6":
-            Console.WriteLine(string.Join("\n", list.GetGraph()));
+            Console.WriteLine("--- Frequency Graphics ---");
+            var graph = list.GetGraph();
+            Console.WriteLine(graph.Count > 0 ? string.Join("\n", graph) : "The list is empty.");
             break;
 
         case "7":
-            Console.WriteLine("Enter value to search: ");
-            if (list.Contains(Console.ReadLine()!))
+            Console.Write("Enter value to search: ");
+            var searchVal = Console.ReadLine()!;
+            if (list.Contains(searchVal))
             {
-                Console.WriteLine("Exist");
+                Console.WriteLine($"\n[✓] '{searchVal}' exists in the list.");
             }
             else
             {
-                Console.WriteLine("Not Exist");
+                Console.WriteLine($"\n[X] '{searchVal}' does not exist in the list.");
             }
-
             break;
         case "8":
             var datoEliminado = list.RemoveFirst();
             if (datoEliminado != null && !datoEliminado.Equals(default))
             {
-                Console.WriteLine($"The first element has been removed from the list: {datoEliminado}");
+                Console.WriteLine($"The first element has been removed from the list {datoEliminado}");
             }
             else
             {
@@ -68,17 +70,20 @@ Console.ReadKey();
 
 string Menu()
 {
-    Console.WriteLine("==== MENU ====");
+    Console.WriteLine("===================================");
+    Console.WriteLine("            MAIN MENU              ");
+    Console.WriteLine("===================================");
     Console.WriteLine("1. Add");
     Console.WriteLine("2. Show Forward list.");
     Console.WriteLine("3. Show Reverse list.");
     Console.WriteLine("4. Order Descending.");
     Console.WriteLine("5. Mode");
-    Console.WriteLine("6. Graphis");
+    Console.WriteLine("6. Show chart");
     Console.WriteLine("7. Exist");
     Console.WriteLine("8. Remove occurrence.");
     Console.WriteLine("9. Remove All.");
     Console.WriteLine("0. Exit.");
+    Console.WriteLine("===================================");
     Console.Write("Enter your option? ");
     return Console.ReadLine()!;
 }

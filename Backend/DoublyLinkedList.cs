@@ -5,11 +5,15 @@ public class DoublyLinkedList<T> where T : IComparable<T>
     private DoubleNode<T>? _head;
     private DoubleNode<T>? _tail;
     private bool _isDescending;
+
     public bool IsDescending { get; set; }
+
+    // Inserts a new node into the list keeping the current sort order
     public void Add(T data)
     {
         var newNode = new DoubleNode<T>(data);
 
+        // Empty list initialization
         if (_head == null)
         {
             _head = newNode;
@@ -20,7 +24,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
 
         var current = _head;
 
-        // Buscar posición según el orden actual
+        // Search correct insertion position based on current order
         if (!_isDescending)
         {
             while (current != null && current.Data!.CompareTo(data) < 0)
@@ -32,19 +36,22 @@ public class DoublyLinkedList<T> where T : IComparable<T>
                 current = current.Next;
         }
 
-        if (current == _head) // Beginning 
+        // Insert at beginning
+        if (current == _head)
         {
             newNode.Next = _head;
             _head.Prev = newNode;
             _head = newNode;
         }
-        else if (current == null) // End
+        // Insert at end
+        else if (current == null)
         {
             _tail!.Next = newNode;
             newNode.Prev = _tail;
             _tail = newNode;
         }
-        else // Middle
+        // Insert in middle
+        else
         {
             newNode.Next = current;
             newNode.Prev = current.Prev;
@@ -52,7 +59,9 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             current.Prev = newNode;
         }
     }
-     public bool Contains(T data)
+
+    // Checks if an element exists in the list
+    public bool Contains(T data)
     {
         var current = _head;
         while (current != null)
@@ -65,8 +74,8 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         }
         return false;
     }
-    
-    
+
+    // Formats list contents from head to tail
     public string ToStringForward()
     {
         var output = string.Empty;
@@ -76,9 +85,10 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             output += $"{current.Data},";
             current = current.Next;
         }
-        return $"{output.TrimEnd(',')} \n";
+        return $"{output.TrimEnd(',')}\n";
     }
 
+    // Formats list contents from tail to head
     public string ToStringReverse()
     {
         var output = string.Empty;
@@ -90,6 +100,8 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         }
         return $"{output.TrimEnd(',')} ";
     }
+
+    // Reverses node pointers to toggle ascending/descending order
     public void OrderDescending()
     {
         if (_head == null || _head.Next == null) return;
@@ -97,20 +109,24 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         var current = _head;
         DoubleNode<T>? temp = null;
 
+        // Swap Next and Prev pointers for all nodes
         while (current != null)
         {
             temp = current.Prev;
             current.Prev = current.Next;
             current.Next = temp;
-            current = current.Prev; //  move forward using Prev 
+            current = current.Prev; // Advance using Prev after swapping
         }
 
+        // Swap head and tail pointers
         temp = _head;
         _head = _tail;
         _tail = temp;
 
         _isDescending = !_isDescending;
     }
+
+    // Calculates and returns string representation of statistical mode(s)
     public string GetModes()
     {
         if (_head == null) return string.Empty;
@@ -120,11 +136,15 @@ public class DoublyLinkedList<T> where T : IComparable<T>
 
         var modes = frequencies.Where(kvp => kvp.Value == maxFreq).Select(kvp => kvp.Key.ToString());
 
+        // Single mode identified
         if (modes.Count() == 1)
-            return $"La moda es {modes.First()}.";
+            return $"The mode is {modes.First()}.";
+        // Multiple modes identified
         else
-            return $"Las modas son {string.Join(" y ", modes)}.";
+            return $"The modes are {string.Join(" and ", modes)}.";
     }
+
+    // Counts element frequency occurrences across the list
     private Dictionary<T, int> GetFrequencies()
     {
         var frequencies = new Dictionary<T, int>();
@@ -140,6 +160,8 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         }
         return frequencies;
     }
+
+    // Builds text histogram lines using asterisks
     public List<string> GetGraph()
     {
         var graphLines = new List<string>();
@@ -156,30 +178,34 @@ public class DoublyLinkedList<T> where T : IComparable<T>
 
         return graphLines;
     }
+
+    // Removes and returns the first element in the list
     public T? RemoveFirst()
     {
-        if (_head == null) return default; 
+        if (_head == null) return default;
 
-        var removedData = _head.Data; 
+        var removedData = _head.Data;
 
-        if (_head.Next == null) 
+        // Single element case
+        if (_head.Next == null)
         {
             _head = null;
             _tail = null;
         }
-        else 
+        // Multiple elements case
+        else
         {
             _head = _head.Next;
             _head!.Prev = null;
         }
 
-        return removedData; // Returns the value that was removed
+        return removedData;
     }
+
+    // Resets the list to empty
     public void Clear()
     {
         _head = null;
         _tail = null;
     }
-
-
 }
