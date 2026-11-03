@@ -58,6 +58,7 @@ do
             break;
     }
 } while (option != "0");
+Console.WriteLine("Exiting the program. Goodbye!");
 
 string Menu()
 {
@@ -65,11 +66,10 @@ string Menu()
     Console.WriteLine("2. Show Forward list.");
     Console.WriteLine("3. Show Reverse list.");
     Console.WriteLine("4. Order Descending.");
-    Console.WriteLine("4. Remove.");
-    Console.WriteLine("5. mode");
+    Console.WriteLine("5. Mode");
     Console.WriteLine("6. Graphis");
     Console.WriteLine("7. Exist");
-    Console.WriteLine("8. Remove first occurrence.");
+    Console.WriteLine("8. Remove occurrence.");
     Console.WriteLine("9. Remove All.");
     Console.WriteLine("0. Exit.");
     Console.Write("Enter your option? ");

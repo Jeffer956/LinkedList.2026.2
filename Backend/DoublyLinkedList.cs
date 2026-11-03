@@ -52,22 +52,7 @@ public class DoublyLinkedList<T> where T : IComparable<T>
             current.Prev = newNode;
         }
     }
-
-    public void InsertAtEnd(T data)
-    {
-        var newNode = new DoubleNode<T>(data);
-        if (_tail == null)
-        {
-            _head = newNode;
-            _tail = newNode;
-            return;
-        }
-        _tail.Next = newNode;
-        newNode.Prev = _tail;
-        _tail = newNode;
-    }
-
-    public bool Contains(T data)
+     public bool Contains(T data)
     {
         var current = _head;
         while (current != null)
@@ -80,56 +65,18 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         }
         return false;
     }
-
-    public void Remove(T data)
-    {
-        var current = _head;
-        while (current != null)
-        {
-            if (current.Data!.Equals(data)) // Found
-            {
-                if (current.Prev == null) // Beginning 
-                {
-                    current.Next!.Prev = null;
-                    _head = _head!.Next;
-                    return;
-                }
-                if (current.Next == null) // End 
-                {
-                    current.Prev!.Next = null;
-                    _tail = _tail!.Prev;
-                    return;
-                }
-                // Middle
-                current.Prev.Next = current.Next;
-                current.Next.Prev = current.Prev;
-                return;
-            }
-            current = current.Next;
-        }
-    }
-
-    public override string ToString()
-    {
-        var output = string.Empty;
-        var current = _head;
-        while (current != null)
-        {
-            output += $"{current.Data} <-> ";
-            current = current.Next;
-        }
-        return $"{output} null";
-    }
+    
+    
     public string ToStringForward()
     {
         var output = string.Empty;
         var current = _head;
         while (current != null)
         {
-            output += $"{current.Data} <-> ";
+            output += $"{current.Data},";
             current = current.Next;
         }
-        return $"{output} null";
+        return $"{output.TrimEnd(',')}";
     }
 
     public string ToStringReverse()
@@ -138,10 +85,10 @@ public class DoublyLinkedList<T> where T : IComparable<T>
         var current = _tail;
         while (current != null)
         {
-            output += $"{current.Data} <-> ";
+            output += $"{current.Data},";
             current = current.Prev;
         }
-        return $"{output} null";
+        return $"{output.TrimEnd(',')}";
     }
     public void OrderDescending()
     {
